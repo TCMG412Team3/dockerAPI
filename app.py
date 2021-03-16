@@ -1,4 +1,10 @@
 from flask import Flask
+import os
+import requests
+import json
+
+webhook_url = os.getenv('WEBHOOK_URL')
+
 app = Flask(__name__)
 
 @app.route('/md5/<md5Input>')
@@ -17,9 +23,14 @@ def fibonacci(fibInput):
 def prime(primeInput):
     return "prime"
 
-@app.route('/slack-alert/<slackInpute>')
-def slack(slackInpute):
-    return "slack"
+@app.route('/slack-alert/<slackInput>')
+def slack(slackInput):
+    postData = {'text': slackInput}
+    response = requests.post(webhook_url, data=json.dumps(postData), headers={'Content-Type': 'application/json'})
+    if response.status_code != 200:
+        return "False"
+    else:
+        return "True"
 
 
 if __name__== '__main__':
