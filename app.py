@@ -17,7 +17,20 @@ def md5(md5Input):
 
 @app.route('/factorial/<factorialInput>')
 def factorial(factorialInput):
-    return "factorial"
+    factorialInput = int(factorialInput)
+    # checks if inputted number is negative
+    if factorialInput <=0:
+        output = {"input":factorialInput, "output": "Error: must enter a positive integer"}
+        return json.dumps(output)
+    # initializes factorial variable to 1
+    factorial = 1
+    # for every integer from 1 to inputted number
+    for i in range(1, factorialInput + 1):
+    # factorial = factorial *= 1
+        factorial *= i
+    # returns factorial
+    output = {"input":factorialInput, "output": factorial}
+    return json.dumps(output)
 
 @app.route('/fibonacci/<fibInput>')
 def fibonacci(fibInput):
