@@ -21,7 +21,23 @@ def factorial(factorialInput):
 
 @app.route('/fibonacci/<fibInput>')
 def fibonacci(fibInput):
-    return "fibonacci"
+    fibInput = int(fibInput)
+    if fibInput < 0:
+        output = {"input":fibInput, "output":"Error. Input is not positive."}
+        return json.dumps(output)
+    if fibInput == 0:
+        output = {"input":fibInput, "output":[0]}
+        return json.dumps(output)
+    if fibInput == 1:
+        output = {"input":fibInput, "output":[1]}
+        return json.dumps(output)
+    numbers = [0, 1]
+    while numbers[len(numbers)-1] < fibInput:
+        if not numbers[len(numbers)-1] + numbers[len(numbers)-2] <= fibInput:
+            break
+        numbers.append(numbers[len(numbers)-1] + numbers[len(numbers)-2])
+    output = {"input":fibInput, "output":numbers}
+    return json.dumps(output)
 
 @app.route('/is-prime/<primeInput>')
 def prime(primeInput):
