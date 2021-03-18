@@ -7,9 +7,13 @@ webhook_url = os.getenv('WEBHOOK_URL')
 
 app = Flask(__name__)
 
+#md5
+import hashlib
 @app.route('/md5/<md5Input>')
 def md5(md5Input):
-    return "md5"
+    md5Output = hashlib.md5(md5Input.encode())
+    output = {"input":md5Input, "output": md5Output}
+    return json.dumps(output)
 
 @app.route('/factorial/<factorialInput>')
 def factorial(factorialInput):
