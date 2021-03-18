@@ -13,7 +13,15 @@ def md5(md5Input):
 
 @app.route('/factorial/<factorialInput>')
 def factorial(factorialInput):
-    return "factorial"
+    # initializes factorial variable to 1
+    factorial = 1
+    # for every integer from 1 to inputted number
+    for i in range(1, factorialInput + 1):
+    # factorial = factorial *= 1
+        factorial *= i
+    # returns factorial
+    output = {"input":factorialInput, "output": factorialOutput}
+    return json.dumps(output)
 
 @app.route('/fibonacci/<fibInput>')
 def fibonacci(fibInput):
