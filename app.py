@@ -12,7 +12,7 @@ import hashlib
 @app.route('/md5/<md5Input>')
 def md5(md5Input):
     md5Output = hashlib.md5(md5Input.encode())
-    output = {"input":md5Input, "output": md5Output}
+    output = {"input":md5Input, "output": md5Output.hexdigest()}
     return json.dumps(output)
 
 @app.route('/factorial/<factorialInput>')
