@@ -28,9 +28,11 @@ def slack(slackInput):
     postData = {'text': slackInput}
     response = requests.post(webhook_url, data=json.dumps(postData), headers={'Content-Type': 'application/json'})
     if response.status_code != 200:
-        return "False"
+        output = {"input":slackInput, "output":"False"}
+        return json.dumps(output)
     else:
-        return "True"
+        output = {"input":slackInput, "output":"True"}
+        return json.dumps(output)
 
 
 if __name__== '__main__':
