@@ -25,23 +25,24 @@ def fibonacci(fibInput):
 
 @app.route('/is-prime/<primeInput>')
 def prime(primeInput):
-    return "prime"
-# is-prime program
+	# is-prime program
 
-num = int(input("Enter a number: "))
-
-if num > 1:
+	num = int(primeInput)
+	if num > 1:
 	
-	for i in range (2, int(num/2)+1):
+		for i in range (2, int(num/2)+1):
 		
-		if (num % i) == 0:
-			print(num, "is not a prime number")
-			break
-	else:
-		print (num, "is a prime number")
+			if (num % i) == 0:
+				output = {"input":primeInput, "output": False}
+				return json.dumps(output)
+		else:
+			output = {"input":primeInput, "output": True}
+			return json.dumps(output)
 			
-	else:
-		print(num, "is not a prime number"
+		else:
+			output = {"input":primeInput, "output": True}
+			return jsons.dumps(output)
+	return "prime"
 
 @app.route('/slack-alert/<slackInput>')
 def slack(slackInput):
