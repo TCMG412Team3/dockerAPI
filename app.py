@@ -1,11 +1,14 @@
 from flask import Flask
+from flask import request
 import os
 import requests
 import json
+import redis
 
 webhook_url = os.getenv('WEBHOOK_URL')
 
 app = Flask(__name__)
+cache = redis.Redis(host='redis', port=6379)
 
 #md5
 import hashlib
@@ -81,6 +84,38 @@ def slack(slackInput):
     else:
         output = {"input":slackInput, "output":True}
         return json.dumps(output)
+    
+    
+    
+@app.route('/keyval', methods=['POST'])
+def keyvalPost():
+    try:
+        content = request.get_json()
+        key = content['key']
+        value = content['value']
+    except:
+        return "", 400
+    command = "SET {} {}".format(key,value)
+    if cache.set(key,value,nx=True) == True:
+        output = {"key":key, "value":value, "command": command, "result": True, "error": ""}
+        return json.dumps(output), 200
+    else:
+        output = {"key":key, "value":value, "command": command, "result": False, "error": "Unable to add pair: key already exists."}
+        return json.dumps(output), 409
+    
+    return "post"
+
+@app.route('/keyval/<keyGetInput>', methods=['GET'])
+def keyvalGet(keyGetInput):
+    return "get"
+
+@app.route('/keyval', methods=['PUT'])
+def keyvalPut():
+    return "put"
+
+@app.route('/keyval/<keyDeleteInput>', methods=['DELETE'])
+def keyvalDelete(keyDeleteInput):
+    return "delete"
 
 
 if __name__== '__main__':
