@@ -112,7 +112,7 @@ def keyvalGet(keyGetInput):
         output = {"key":keyGetInput, "value":"", "command": command, "result": False, "error": "Unable to retrieve pair: key does not exist."}
         return json.dumps(output), 404
     else:
-        output = {"key":keyGetInput, "value":Value, "command": command, "result": True, "error": ""}
+        output = {"key":keyGetInput, "value":Value.decode("utf-8"), "command": command, "result": True, "error": ""}
         return json.dumps(output), 200
     
 
