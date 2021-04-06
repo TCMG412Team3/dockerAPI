@@ -106,7 +106,15 @@ def keyvalPost():
 
 @app.route('/keyval/<keyGetInput>', methods=['GET'])
 def keyvalGet(keyGetInput):
-    return "get"
+    command = "GET {}".format(keyGetInput)
+    Value = cache.get(keyGetInput)
+    if Value==None:
+        output = {"key":keyGetInput, "value":"", "command": command, "result": False, "error": "Unable to retrieve pair: key does not exist."}
+        return json.dumps(output), 404
+    else:
+        output = {"key":keyGetInput, "value":Value, "command": command, "result": True, "error": ""}
+        return json.dumps(output), 200
+    
 
 @app.route('/keyval', methods=['PUT'])
 def keyvalPut():
