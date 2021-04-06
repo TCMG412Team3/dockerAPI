@@ -1,11 +1,7 @@
-dockerAPI
+#dockerAPI
 
+##Create copy of `web.env.default` as `web.env` and add Slack webhook url to web.env file
 
-#Build image
+##Build and run containers
 
-`docker build --tag python-docker .`
-
-
-#Run container
-
-`docker run -p 5000:5000 -e WEBHOOK_URL="<WEBHOOK_URL>" python-docker`
+`docker-compose up --build`
