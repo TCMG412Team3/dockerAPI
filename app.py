@@ -129,7 +129,7 @@ def keyvalPut():
         output = {"key":key, "value":value, "command": command, "result": True, "error": ""}
         return json.dumps(output), 200
     else:
-        output = {"key":key, "value":value, "command": command, "result": False, "error": "Unable to add pair: unable to update value. key does not already exist."}
+        output = {"key":key, "value":value, "command": command, "result": False, "error": "Unable to update value: Key does not exist."}
         return json.dumps(output), 404
 
 @app.route('/keyval/<keyDeleteInput>', methods=['DELETE'])
