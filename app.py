@@ -138,6 +138,9 @@ def keyvalDelete(keyDeleteInput):
     if cache.delete(keyDeleteInput)==False:
         output = {"key":keyDeleteInput, "value":"", "command": command, "result": False, "error": "Unable to delete pair: key does not exist."}
         return json.dumps(output), 404
+    else:
+        output = {"key":keyDeleteInput, "value":"", "command": command, "result": True, "error": ""}
+        return json.dumps(output), 200
 
 
 if __name__== '__main__':
