@@ -103,7 +103,6 @@ def keyvalPost():
         output = {"key":key, "value":value, "command": command, "result": False, "error": "Unable to add pair: key already exists."}
         return json.dumps(output), 409
     
-    return "post"
 
 @app.route('/keyval/<keyGetInput>', methods=['GET'])
 def keyvalGet(keyGetInput):
