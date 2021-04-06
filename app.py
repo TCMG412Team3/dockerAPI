@@ -134,7 +134,10 @@ def keyvalPut():
 
 @app.route('/keyval/<keyDeleteInput>', methods=['DELETE'])
 def keyvalDelete(keyDeleteInput):
-    return "delete"
+    command = "DEL {}".format(keyDeleteInput)
+    if cache.delete(keyDeleteInput)==False:
+        output = {"key":keyDeleteInput, "value":"", "command": command, "result": False, "error": "Unable to delete pair: key does not exist."}
+        return json.dumps(output), 404
 
 
 if __name__== '__main__':
