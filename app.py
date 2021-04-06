@@ -95,7 +95,7 @@ def keyvalPost():
         value = content['value']
     except:
         return "", 400
-    command = "SET {} {}".format(key,value)
+    command = "SET {} {} NX".format(key,value)
     if cache.set(key,value,nx=True) == True:
         output = {"key":key, "value":value, "command": command, "result": True, "error": ""}
         return json.dumps(output), 200
@@ -118,7 +118,19 @@ def keyvalGet(keyGetInput):
 
 @app.route('/keyval', methods=['PUT'])
 def keyvalPut():
-    return "put"
+    try:
+        content = request.get_json()
+        key = content['key']
+        value = content['value']
+    except:
+        return "", 400
+    command = "SET {} {} XX".format(key,value)
+    if cache.set(key,value,xx=True) == True:
+        output = {"key":key, "value":value, "command": command, "result": True, "error": ""}
+        return json.dumps(output), 200
+    else:
+        output = {"key":key, "value":value, "command": command, "result": False, "error": "Unable to add pair: unable to update value. key does not already exist."}
+        return json.dumps(output), 404
 
 @app.route('/keyval/<keyDeleteInput>', methods=['DELETE'])
 def keyvalDelete(keyDeleteInput):
