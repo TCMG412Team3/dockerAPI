@@ -82,6 +82,7 @@ testEndpointJSON(apiURL+"/keyval", 'PUT', {"key":"test", "value":"foobar"}, [200
 testEndpointJSON(apiURL+"/keyval", 'PUT', {"key":"test2", "value":"foobar"}, [404], {"key":"test2", "value":"foobar", "command": "SET test2 foobar XX", "result": False, "error": "Unable to update value: Key does not exist."})
 testEndpointJSON(apiURL+"/keyval/test2", 'DELETE', "", [404], {"key":"test2", "value":"", "command": "DEL test2", "result": False, "error": "Unable to delete pair: key does not exist."})
 testEndpointJSON(apiURL+"/keyval/test", 'DELETE', "", [200], {"key":"test", "value":"", "command": "DEL test", "result": True, "error": ""})
+testEndpointJSON(apiURL+"/keyval/test", 'DELETE', "", [404], {"key":"test", "value":"", "command": "DEL test", "result": False, "error": "Unable to delete pair: key does not exist."})
 
 if failedCount == 0:
     print("All tests passed!")
