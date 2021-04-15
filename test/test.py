@@ -59,15 +59,15 @@ testEndpoint(apiURL + "/md5/hello%20world", 'GET', [200], "5eb63bbbe01eeed093cb2
 testEndpoint(apiURL + "/factorial/3",'GET',[200],6)
 testEndpoint(apiURL + "/factorial/4",'GET',[200],24)
 testEndpoint(apiURL + "/factorial/6",'GET',[200],720)
-
+testEndpoint(apiURL + "/is-prime/1", 'GET', [200], False)
+testEndpoint(apiURL + "/is-prime/2", 'GET', [200], True)
+testEndpoint(apiURL + "/is-prime/5", 'GET', [200], True)
+testEndpoint(apiURL + "/is-prime/6", 'GET', [200], False)
+testEndpoint(apiURL + "/is-prime/37", 'GET', [200], True)
 
 testEndpointJSON(apiURL+"/keyval/test", 'GET', "", [404], {"key":"test", "value":"", "command": "GET test", "result": False, "error": "Unable to retrieve pair: key does not exist."})
 testEndpointJSON(apiURL+"/keyval", 'POST', {"key":"test", "value":"testval"}, [200], {"key":"test", "value":"testval", "command": "SET test testval NX", "result": True, "error": ""})
 testEndpointJSON(apiURL+"/keyval/test", 'GET', "", [200], {"key":"test", "value":"testval", "command": "GET test", "result": True, "error": ""})
 testEndpointJSON(apiURL+"/keyval", 'POST', {"key":"test", "value":"testval"}, [409], {"key":"test", "value":"testval", "command": "SET test testval NX", "result": False, "error": "Unable to add pair: key already exists."})
 
-testEndpoint(apiURL + "/is-prime/1", 'GET', [200], False)
-testEndpoint(apiURL + "/is-prime/2", 'GET', [200], True)
-testEndpoint(apiURL + "/is-prime/5", 'GET', [200], True)
-testEndpoint(apiURL + "/is-prime/6", 'GET', [200], False)
-testEndpoint(apiURL + "/is-prime/37", 'GET', [200], True)
+
