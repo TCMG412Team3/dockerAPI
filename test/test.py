@@ -43,5 +43,7 @@ except:
 testEndpoint(apiURL + "/md5", 'GET', [400,404,405], None)
 testEndpoint(apiURL + "/md5/test", 'GET', [200], "098f6bcd4621d373cade4e832627b4f6")
 testEndpoint(apiURL + "/md5/hello%20world", 'GET', [200], "5eb63bbbe01eeed093cb22bb8f5acdc3")
-    ('/slack-alert/test',         'GET',  [200], True),
-    ('/slack-alert/'+HTTP_ENCODE, 'GET',  [200], True),
+testEndpoint(apiURL + "/factorial/3",'GET',[200],6)
+testEndpoint(apiURL + "/factorial/4",'GET',[200],24)
+testEndpoint(apiURL + "/factorial/6",'GET',[200],720)
+
