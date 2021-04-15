@@ -66,3 +66,8 @@ testEndpointJSON(apiURL+"/keyval", 'POST', {"key":"test", "value":"testval"}, [2
 testEndpointJSON(apiURL+"/keyval/test", 'GET', "", [200], {"key":"test", "value":"testval", "command": "GET test", "result": True, "error": ""})
 testEndpointJSON(apiURL+"/keyval", 'POST', {"key":"test", "value":"testval"}, [409], {"key":"test", "value":"testval", "command": "SET test testval NX", "result": False, "error": "Unable to add pair: key already exists."})
 
+testEndpoint(apiURL + "/is-prime/1", 'GET', [200], False
+testEndpoint(apiURL + "/is-prime/2", 'GET', [200], True
+testEndpoint(apiURL + "/is-prime/5", 'GET', [200], True
+testEndpoint(apiURL + "/is-prime/6", 'GET', [200], False
+testEndpoint(apiURL + "/is-prime/37", 'GET', [200], True
