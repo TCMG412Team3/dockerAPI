@@ -15,8 +15,18 @@ def testEndpoint(endpointURL, requestMethod, expectedStatus, expectedResponse):
     failedCount = failedCount + 1
     return 1
 
-def testEndpointJSON(url, method, requestData, expectedStatus, expectedResponse):
-    return 0
+def testEndpointJSON(endpointURL, requestMethod, requestData, expectedStatus, expectedResponse):
+    print("Testing endpoint: '{}' with method {}".format(endpointURL, requestMethod))
+    response = requests.request(requestMethod, url=endpointURL, json=requestData)
+    if response.status_code in expectedStatus and (expectedResponse == None or response.json() == expectedResponse):
+        print("Test PASSED\n")
+        return 0
+    print("Test FAILED")
+    print("Expected status:{}\nRecieved status:{}".format(expectedStatus, response.status_code))
+    print("Expected response:{}\nRecieved response:{}".format(expectedResponse, response.text))
+    global failedCount
+    failedCount = failedCount + 1
+    return 1
 
 failedCount = 0
 
@@ -49,4 +59,10 @@ testEndpoint(apiURL + "/md5/hello%20world", 'GET', [200], "5eb63bbbe01eeed093cb2
 testEndpoint(apiURL + "/factorial/3",'GET',[200],6)
 testEndpoint(apiURL + "/factorial/4",'GET',[200],24)
 testEndpoint(apiURL + "/factorial/6",'GET',[200],720)
+
+
+testEndpointJSON(apiURL+"/keyval/test", 'GET', "", [404], {"key":"test", "value":"", "command": "GET test", "result": False, "error": "Unable to retrieve pair: key does not exist."})
+testEndpointJSON(apiURL+"/keyval", 'POST', {"key":"test", "value":"testval"}, [200], {"key":"test", "value":"testval", "command": "SET test testval NX", "result": True, "error": ""})
+testEndpointJSON(apiURL+"/keyval/test", 'GET', "", [200], {"key":"test", "value":"testval", "command": "GET test", "result": True, "error": ""})
+testEndpointJSON(apiURL+"/keyval", 'POST', {"key":"test", "value":"testval"}, [409], {"key":"test", "value":"testval", "command": "SET test testval NX", "result": False, "error": "Unable to add pair: key already exists."})
 
