@@ -37,7 +37,10 @@ def factorial(factorialInput):
 
 @app.route('/fibonacci/<fibInput>')
 def fibonacci(fibInput):
-    fibInput = int(fibInput)
+    try:
+        fibInput = int(fibInput)
+    except:
+        return "",400
     if fibInput < 0:
         output = {"input":fibInput, "output":"Error. Input is not positive."}
         return json.dumps(output)
@@ -45,7 +48,7 @@ def fibonacci(fibInput):
         output = {"input":fibInput, "output":[0]}
         return json.dumps(output)
     if fibInput == 1:
-        output = {"input":fibInput, "output":[1]}
+        output = {"input":fibInput, "output":[0,1,1]}
         return json.dumps(output)
     numbers = [0, 1]
     while numbers[len(numbers)-1] < fibInput:
