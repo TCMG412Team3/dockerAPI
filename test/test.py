@@ -41,6 +41,6 @@ except:
 
 
 testEndpoint(apiURL + "/md5", 'GET', [400,404,405], None)
-testEndpoint(apiURL + "/md5/test", 'GET', [200], d8e8fca2dc0f896fd7cb4cb0031ba249)
-HASH_1 = '098f6bcd4621d373cade4e832627b4f6'   # 'test'
-HASH_2 = '5eb63bbbe01eeed093cb22bb8f5acdc3'   # 'hello world'
+testEndpoint(apiURL + "/md5/test", 'GET', [200], "098f6bcd4621d373cade4e832627b4f6")
+testEndpoint(apiURL + "/md5/hello%20world", 'GET', [200], "5eb63bbbe01eeed093cb22bb8f5acdc3")
+
