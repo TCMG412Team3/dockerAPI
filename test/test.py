@@ -5,7 +5,7 @@ import argparse
 def testEndpoint(endpointURL, requestMethod, expectedStatus, expectedResponse):
     print("Testing endpoint: '{}' with method {}".format(endpointURL, requestMethod))
     response = requests.request(requestMethod, url=endpointURL)
-    if response.status_code in expectedStatus and (response.text == expectedResponse or expectedResponse == None):
+    if response.status_code in expectedStatus and (expectedResponse == None or response.json()["output"] == expectedResponse):
         print("Test PASSED\n")
         return 0
     print("Test FAILED")
@@ -39,6 +39,9 @@ except:
     print("Error contacting API, please ensure that hostname and port are correct.")
     sys.exit(1)
 
+
+
+#TESTS
 
 testEndpoint(apiURL + "/md5", 'GET', [400,404,405], None)
 testEndpoint(apiURL + "/md5/test", 'GET', [200], "098f6bcd4621d373cade4e832627b4f6")
