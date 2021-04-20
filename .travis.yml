@@ -1,0 +1,14 @@
+language: python 
+services:
+  - docker
+  
+  
+script:
+  - cd app
+  - docker-compose up build
+  
+script:
+  - cd test
+  - docker build --tage api-test .
+  - docker run --network host api-test
+  
