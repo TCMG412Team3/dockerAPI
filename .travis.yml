@@ -9,3 +9,7 @@ script:
   - docker build --tag api-test .
   - docker run --network host api-test
   
+after_success:
+  - docker login --username ${D_USER} --password ${D_PASSWORD}
+  - cd app
+  - docker-compose push
