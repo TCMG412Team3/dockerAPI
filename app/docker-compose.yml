@@ -6,5 +6,6 @@ services:
         - web.env
     ports:
       - "5000:5000"
+    image: braxtonwill/tcmg412api
   redis:
     image: "redis:alpine"
