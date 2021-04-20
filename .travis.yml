@@ -5,7 +5,7 @@ services:
 script:
   - cd app
   - echo "WEBHOOK_URL=$TWEBHOOK_URL" >> web.env
-  - docker-compose -d up
+  - docker-compose up -d
   - cd ../test
   - docker build --tag api-test .
   - docker run --network host api-test
