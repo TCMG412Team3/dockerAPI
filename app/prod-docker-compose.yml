@@ -3,7 +3,7 @@ services:
   web:
     build: .
     environment:
-      - WEBHOOKURL
+      - WEBHOOKURL=${WEBHOOKURL}
     ports:
       - "5000:5000"
     image: ${D_USER}/tcmg412api
