@@ -12,4 +12,4 @@ script:
 after_success:
   - docker login --username ${D_USER} --password ${D_PASSWORD}
   - cd ../app
-  - docker-compose push
+  - docker-compose -f prod-docker-compose.yml push
