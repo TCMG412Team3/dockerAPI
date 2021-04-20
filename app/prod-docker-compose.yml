@@ -2,9 +2,10 @@ version: "3.0"
 services:
   web:
     build: .
-    env_file:
-        - web.env
+    environment:
+      - WEBHOOKURL
     ports:
       - "5000:5000"
+    image: ${D_USER}/tcmg412api
   redis:
     image: "redis:alpine"
